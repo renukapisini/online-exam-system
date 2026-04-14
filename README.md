@@ -13,75 +13,16 @@ The platform provides a secure and user-friendly environment for **Admins** and 
 ✔️ Completely Free  
 ✔️ Full Source Code Included
 
----
 
-# 💖 Support & Contact
 
-This project is created by **LazyCoder**.
 
-### 📺 Subscribe to My YouTube Channel
-I post tutorials, Java/Python projects, and Spring Boot content regularly.
 
-👉 **Subscribe Here:**  
-https://www.youtube.com/c/LazyCoderOnline?sub_confirmation=1
 
----
-
-### 🤝 Need Help or Want a Custom Project?
-
-📌 Facing issues with this project?  
-📌 Want a custom Java/Spring Boot/Django project?
-
-**I am available for freelance development.**
-
-📱 **WhatsApp:** https://wa.me/919572181024
-
-<p align="center">
-<a href="https://www.youtube.com/c/LazyCoderOnline?sub_confirmation=1">
-<img src="https://img.shields.io/badge/Subscribe-LazyCoder-red?style=for-the-badge&logo=youtube" >
-</a>
-
-<a href="https://wa.me/919572181024">
-<img src="https://img.shields.io/badge/WhatsApp-Chat%20Now-green?style=for-the-badge&logo=whatsapp" >
-</a>
-</p>
-
----
 
 # 📸 Screenshots
 
 
-<table width="100%">
-
-
 <tr>
-<td align="center"><b>Exam Page (with Pagination)</b></td>
-</tr>
-<tr>
-<td align="center"><img src="https://github.com/sumitkumar1503/online-exam-system/blob/master/screenshots/exampage.png" width="90%"></td>
-</tr>
-
-<tr>
-<td align="center"><b>Admin Dashboard</b></td>
-</tr>
-<tr>
-<td align="center"><img src="https://github.com/sumitkumar1503/online-exam-system/blob/master/screenshots/admindashboard.png?raw=true" width="90%"></td>
-</tr>
-
-<tr>
-<td align="center"><b>Manage Exam</b></td>
-</tr>
-<tr>
-<td align="center"><img src="https://github.com/sumitkumar1503/online-exam-system/blob/master/screenshots/adminmanageexam.png" width="90%"></td>
-</tr>
-
-<tr>
-<td align="center"><b>Manage Question</b></td>
-</tr>
-<tr>
-<td align="center"><img src="https://github.com/sumitkumar1503/online-exam-system/blob/master/screenshots/adminmanagequestion.png" width="90%"></td>
-</tr>
-</table>
 
 ---
 
@@ -141,7 +82,7 @@ https://www.youtube.com/c/LazyCoderOnline?sub_confirmation=1
 ### ✔️ Clone the Repository
 
 ```bash
-git clone https://github.com/sumitkumar1503/online-exam-system.git
+git clone https://github.com/renukapisini/online-exam-system.git
 cd online-exam-system
 ```
 
