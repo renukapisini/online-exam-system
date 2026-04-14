@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analytics Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .feature-card {
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .status-online {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .api-section {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .api-endpoint {
+            background: white;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI Analytics Dashboard</h1>
+        
+        <div class="row">
+            <!-- System Status -->
+            <div class="col-md-12 mb-4">
+                <div class="alert alert-info">
+                    <strong>System Status:</strong> 
+                    <span class="status-badge status-online" id="ml-status">🟢 Checking...</span>
+                    <span id="status-text"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="row">
+            <!-- Feature 1: Performance Prediction -->
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Performance Prediction</h3>
+                    <p><strong>What it does:</strong> Predicts your final exam score and pass probability in real-time.</p>
+                    <p><strong>How it works:</strong> Analyzes your current answers, time spent, and exam difficulty to predict your final score.</p>
+                    <button class="btn btn-sm btn-primary" onclick="testPerformancePrediction()">Test Feature</button>
+                </div>
+            </div>
+
+            <!-- Feature 2: Question Recommendation -->
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Question Recommendation</h3>
+                    <p><strong>What it does:</strong> Identifies weak topics and recommends personalized study paths.</p>
+                    <p><strong>How it works:</strong> Analyzes your exam performance by topic and creates a study plan.</p>
+                    <button class="btn btn-sm btn-primary" onclick="testQuestionRecommendation()">Test Feature</button>
+                </div>
+            </div>
+
+            <!-- Feature 3: Cheat Detection -->
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Cheat Detection</h3>
+                    <p><strong>What it does:</strong> Detects suspicious exam behavior automatically.</p>
+                    <p><strong>How it works:</strong> Monitors timing, copy-paste activities, and unusual patterns.</p>
+                    <button class="btn btn-sm btn-primary" onclick="testCheatDetection()">Test Feature</button>
+                </div>
+            </div>
+
+            <!-- Feature 4: Study Plan Generator -->
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Study Plan Generator</h3>
+                    <p><strong>What it does:</strong> Creates personalized weekly study plans based on your performance.</p>
+                    <p><strong>How it works:</strong> Generates daily activities, time allocation, and improvement predictions.</p>
+                    <button class="btn btn-sm btn-primary" onclick="testStudyPlanGenerator()">Test Feature</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Endpoints Documentation -->
+        <div class="api-section">
+            <h3>📡 API Endpoints</h3>
+            <p>Access these endpoints directly:</p>
+            
+            <div class="api-endpoint">
+                POST /api/ai-analytics/predict-performance
+            </div>
+            <div class="api-endpoint">
+                POST /api/ai-analytics/recommend-questions
+            </div>
+            <div class="api-endpoint">
+                POST /api/ai-analytics/detect-cheating
+            </div>
+            <div class="api-endpoint">
+                POST /api/ai-analytics/generate-study-plan
+            </div>
+            <div class="api-endpoint">
+                GET /api/ai-analytics/health
+            </div>
+
+            <h4 style="margin-top: 20px;">📖 Example Usage:</h4>
+            <pre style="background: white; padding: 15px; border-radius: 5px;"><code>curl -X POST http://localhost:8080/api/ai-analytics/predict-performance \
+  -G \
+  -d "correctAnswers=15" \
+  -d "totalQuestions=20" \
+  -d "timeSpent=1200" \
+  -d "avgTimePerQ=60" \
+  -d "difficultyLevel=2"</code></pre>
+        </div>
+
+        <!-- Results Display -->
+        <div id="results" style="display: none; margin-top: 30px;">
+            <h3>📋 Test Results:</h3>
+            <pre id="result-content" style="background: #f5f5f5; padding: 15px; border-radius: 5px; max-height: 400px; overflow-y: auto;"></pre>
+        </div>
+
+        <!-- Navigation -->
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="/" class="btn btn-secondary">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        // Check system health on load
+        window.addEventListener('load', function() {
+            checkSystemHealth();
+        });
+
+        function checkSystemHealth() {
+            fetch('http://localhost:8080/api/ai-analytics/health')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ml-status').textContent = '🟢 System Online';
+                    document.getElementById('ml-status').className = 'status-badge status-online';
+                    document.getElementById('status-text').textContent = '✅ All AI features are available!';
+                })
+                .catch(error => {
+                    document.getElementById('ml-status').textContent = '🟡 ML Backend Starting...';
+                    document.getElementById('ml-status').className = 'status-badge';
+                    document.getElementById('status-text').textContent = '⏳ ML backend is initializing. Please wait...';
+                });
+        }
+
+        function testPerformancePrediction() {
+            const params = new URLSearchParams({
+                correctAnswers: 15,
+                totalQuestions: 20,
+                timeSpent: 1200,
+                avgTimePerQ: 60,
+                difficultyLevel: 2
+            });
+
+            fetch(`http://localhost:8080/api/ai-analytics/predict-performance?${params}`)
+                .then(response => response.json())
+                .then(data => {
+                    showResults('Performance Prediction Results:', data);
+                })
+                .catch(error => showResults('Error:', {error: error.message}));
+        }
+
+        function testQuestionRecommendation() {
+            fetch('http://localhost:8080/api/ai-analytics/recommend-questions', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    studentId: 1,
+                    questionsByTopic: {
+                        "Mathematics": {"correct": 8, "total": 10},
+                        "Science": {"correct": 4, "total": 10},
+                        "English": {"correct": 9, "total": 10}
+                    }
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    showResults('Question Recommendation Results:', data);
+                })
+                .catch(error => showResults('Error:', {error: error.message}));
+        }
+
+        function testCheatDetection() {
+            fetch('http://localhost:8080/api/ai-analytics/detect-cheating', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    studentId: 1,
+                    totalQuestions: 10,
+                    examDuration: 600,
+                    copyPasteCount: 0,
+                    questionAnswers: [
+                        {"q_id": 1, "time_spent": 45, "answer": 1, "is_correct": true}
+                    ]
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    showResults('Cheat Detection Results:', data);
+                })
+                .catch(error => showResults('Error:', {error: error.message}));
+        }
+
+        function testStudyPlanGenerator() {
+            const params = new URLSearchParams({
+                weakTopics: "Science,Mathematics",
+                strongTopics: "English",
+                currentScore: 65,
+                targetScore: 85
+            });
+
+            fetch(`http://localhost:8080/api/ai-analytics/generate-study-plan?${params}`)
+                .then(response => response.json())
+                .then(data => {
+                    showResults('Study Plan Generator Results:', data);
+                })
+                .catch(error => showResults('Error:', {error: error.message}));
+        }
+
+        function showResults(title, data) {
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('result-content').textContent = title + '\n\n' + JSON.stringify(data, null, 2);
+            document.getElementById('result-content').scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
